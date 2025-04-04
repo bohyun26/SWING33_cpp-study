@@ -1,147 +1,126 @@
-#include <iostream>  
+# include<iostream>
+
 using namespace std;
+
+const int TRAIN_NUM = 3;
+const int LINE = 5;
+const int ROW = 4; 
 
 int main() {
 
-	int num;
+	int num = 0;
+	int train;
+	int line = 0;
+	int row = 0;
+	int seat[TRAIN_NUM][LINE][ROW] = { 0 };
 
-	cout << "**기차 예약 시스템**\n";
-	cout << "1.좌석 예약 시스템\n";
-	cout << "2.예약 변경\n";
-	cout << "3.프로그램 종료\n";
-	cout << "번호를 입력하세요 : ";
-	cin >> num;
-
-	cout << endl;
-
-	cout << "1 2      3 4  (1호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (2호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (3호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << endl;
-
-	cout << "성인(25000원): ";
-	cin >> num;
-
-	cout << endl;
-
-	cout << "청소년(18000원): ";
-	cin >> num;
-
-	cout << endl;
+	while (true) {
 
 
+		int num;
 
-
-	cout << endl << "몇호차를 예약 하시겠습니까?" << endl;
-	cin >> num;
-	if (num > 3) {
-		cout << "예약가능한 호차가 아닙니다." << endl << "몇호차를 예약	하시겠습니까?" << endl;
+		cout << "**기차 예약 시스템**\n";
+		cout << "1.좌석 예약 시스템\n";
+		cout << "2.예약 변경\n";
+		cout << "3.프로그램 종료\n";
+		cout << "번호를 입력하세요 : ";
 		cin >> num;
+
+
+
+		if (num == 1) {
+
+
+
+			for (int train = 0; train < TRAIN_NUM; ++train) {
+				cout << "1 2    3 4 (" << train + 1 << "호차)" << endl;
+				cout << "-----------" << endl;
+
+				for (int line = 0; line < LINE; ++line) {
+					for (int row = 0; row < ROW; ++row) {
+						if (row == 2) cout << "   ";
+						cout << seat[train][line][row] << " ";
+					}
+					cout << endl;
+				}
+
+				cout << endl;
+
+
+			}
+
+
+
+
+			cout << "성인(25000원): ";
+			cin >> num;
+
+			cout << endl;
+
+			cout << "청소년(18000원): ";
+			cin >> num;
+
+			cout << endl;
+
+			int i = 0;
+
+			for (int i = 0; i < 2; i++) {
+
+				while (i<2) {
+
+					cout << "\n몇 호차를 예약하시겠습니까? " << endl;
+					cin >> train;
+
+
+					if (train < 1 || train > TRAIN_NUM) {
+						cout << "예약 가능한 호차가 아닙니다." << endl;
+						continue;
+					}
+
+					cout << "몇 열, 몇 번째 좌석을 예약하시겠습니까? " << endl;
+					cin >> line >> row;
+
+
+					if (line < 1 || line > LINE || row < 1 || row > ROW) {
+						cout << "예약 가능한 좌석이 아닙니다." << endl;
+						continue;
+					}
+
+
+					if (seat[train - 1][line - 1][row - 1] == 1) {
+						cout << "이미 예약되었습니다. 다른 자리를 선택하세요." << endl;
+						continue;
+					}
+
+					seat[train - 1][line - 1][row - 1] = 1;
+					cout <<endl<< "예약되었습니다." << endl;
+
+					break;
+				}
+
+				
+
+
+			}
+			cout << endl;
+
+			for (int train = 0; train < TRAIN_NUM; ++train) {
+				cout << "1 2    3 4 (" << train + 1 << "호차)" << endl;
+				cout << "-----------" << endl;
+
+				for (int line = 0; line < LINE; ++line) {
+					for (int row = 0; row < ROW; ++row) {
+						if (row == 2) cout << "   ";
+						cout << seat[train][line][row] << " ";
+					}
+					cout << endl;
+				}
+				cout << endl;
+			}
+			break;
+
+
+
+		}
 	}
-
-	cout << "몇 열, 몇번째 좌석을 예약하시겠습니까?" << endl;
-	cin >> num;
-
-
-	if (num > 5) {
-		cout << "예약가능한 좌석이 아닙니다." << endl << "몇 열, 몇번째 좌석을 예약하시겠습니까?" << endl;
-		cin >> num;
-	}
-	if (num <= 5) {
-		cout << "예약되었습니다" << endl;
-	}
-
-	cout << endl;
-
-
-
-	cout << "**기차 예약 시스템**\n";
-	cout << "1.좌석 예약 시스템\n";
-	cout << "2.예약 변경\n";
-	cout << "3.프로그램 종료\n";
-	cout << "번호를 입력하세요 :";
-	cin >> num;
-
-
-	cout << endl;
-
-	cout << "1 2      3 4  (1호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (2호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (3호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << endl;
-
-	cout << "바꿀 좌석의 갯수를 입력하세요 : ";
-	cin >> num;
-
-	cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
-	cout << "현재 좌석 (H호차, N열, M번째) : ";
-	cin >> num >> num >> num;
-	cout << "변경 좌석 (H호차, N열, M번째) : ";
-	cin >> num >> num >> num;
-
-	cout << "변경되었습니다." << endl;
-
-	cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
-
-	cout << "현재 좌석 (H호차, N열, M번째) : ";
-	cin >> num >> num >> num;
-
-	cout << "변경 좌석 (H호차, N열, M번째) : ";
-	cin >> num >> num >> num;
-
-	cout << "변경되었습니다." << endl;
-
-
-	cout << "1 2      3 4  (1호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (2호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << "-------------\n";
-
-	cout << "1 2      3 4  (3호차 )\n";
-	cout << "-------------\n";
-	for (int i = 0; i < 5; i++) {
-		cout << "0 0      0 0\n";
-	}
-	cout << endl;
-}
+}	
