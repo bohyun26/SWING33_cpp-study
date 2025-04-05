@@ -13,9 +13,14 @@ int main() {
 	int line = 0;
 	int row = 0;
 	int seat[TRAIN_NUM][LINE][ROW] = { 0 };
+	int adult=0;
+	int baby=0;
+	int adultTotal = 0;
+	int babyTotal = 0;
 
-	while (true) {
+	int p = 0;
 
+	while(true) {
 
 		int num;
 
@@ -26,11 +31,7 @@ int main() {
 		cout << "번호를 입력하세요 : ";
 		cin >> num;
 
-
-
 		if (num == 1) {
-
-
 
 			for (int train = 0; train < TRAIN_NUM; ++train) {
 				cout << "1 2    3 4 (" << train + 1 << "호차)" << endl;
@@ -46,28 +47,31 @@ int main() {
 
 				cout << endl;
 
-
 			}
 
-
-
-
 			cout << "성인(25000원): ";
-			cin >> num;
+			cin >> adult;
+			
 
 			cout << endl;
 
 			cout << "청소년(18000원): ";
-			cin >> num;
+			cin >> baby;
+			
+
+			int total = adult + baby;
+
+			adultTotal += adult;
+			babyTotal += baby;
 
 			cout << endl;
 
 			int i = 0;
 
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < total; i++) {
 
-				while (i<2) {
-
+				
+				while (true) {
 					cout << "\n몇 호차를 예약하시겠습니까? " << endl;
 					cin >> train;
 
@@ -93,15 +97,13 @@ int main() {
 					}
 
 					seat[train - 1][line - 1][row - 1] = 1;
-					cout <<endl<< "예약되었습니다." << endl;
+					cout << endl << "예약되었습니다." << endl;
 
 					break;
 				}
-
 				
-
-
 			}
+			
 			cout << endl;
 
 			for (int train = 0; train < TRAIN_NUM; ++train) {
@@ -117,10 +119,118 @@ int main() {
 				}
 				cout << endl;
 			}
-			break;
 
 
 
 		}
+
+		else if (num == 2) {
+
+			for (int train = 0; train < TRAIN_NUM; ++train) {
+				cout << "1 2    3 4 (" << train + 1 << "호차)" << endl;
+				cout << "-----------" << endl;
+
+				for (int line = 0; line < LINE; ++line) {
+					for (int row = 0; row < ROW; ++row) {
+						if (row == 2) cout << "   ";
+						cout << seat[train][line][row] << " ";
+					}
+					cout << endl;
+				}
+				cout << endl;
+			}
+
+			//기존 좌석은 train,line,row이고 바꿀 좌석을 H,N,M이라고 정함!!
+
+			int origintrain;
+			int originline;
+			int originrow;
+
+			int H = 0;
+			int N = 0;
+			int M = 0;
+
+
+			cout << "바꿀 좌석의 갯수를 입력하세요 : ";
+			cin >> num;
+
+			for (int i = 0;i < num;i++) {
+				while (true) {
+
+					cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
+					cout << "현재 좌석(H호차 , N열 , M번째) : ";
+					cin >> origintrain >> originline >> originrow;
+
+					int a = origintrain - 1; //train
+					int b = originline - 1; //line
+					int c = originrow - 1; //row
+
+					if (a<0 || a>TRAIN_NUM || b<0 || b>LINE || c<0 || c>ROW) {
+						cout << "좌석 번호를 다시 입력해주세요" << endl;
+						continue;
+					}
+
+					if (seat[a][b][c] != 1) {
+						cout << "현재 좌석이 틀렸습니다. 다시 입력해주세요" << endl;
+						continue;
+					}
+
+					break;
+				}
+
+				while (true) {
+					cout << "변경 좌석(H호차 , N열 , M번째) : ";
+					cin >> H >> N >> M;
+
+					int a = H - 1;
+					int b = N - 1;
+					int c = M - 1;
+
+					if (a<0 || a>TRAIN_NUM || b<0 || b>LINE || c<0 || c>ROW) {
+						cout << "좌석 번호를 다시 입력해주세요" << endl;
+						continue;
+					}
+
+					if (seat[a][b][c] == 1) {
+						cout << "이미 예약되었습니다. 다른 좌석을 선택하세요" << endl;
+						continue;
+					}
+
+					if (origintrain == H && originline == N && originrow == M) {
+						cout << "똑같은 자리입니다. 다른 좌석을 선택하세요" << endl;
+						continue;
+					}
+
+					seat[origintrain - 1][originline - 1][originrow - 1] = 0; //기존 좌석 예약 취소
+					seat[H - 1][N - 1][M - 1] = 1; // 변경 좌석 반영하기!
+
+					cout << "변경되었습니다." << endl;
+
+					break;
+				}
+
+			}
+
+			for (int train = 0; train < TRAIN_NUM; ++train) {
+				cout << "1 2    3 4 (" << train + 1 << "호차)" << endl;
+				cout << "-----------" << endl;
+
+				for (int line = 0; line < LINE; ++line) {
+					for (int row = 0; row < ROW; ++row) {
+						if (row == 2) cout << "   ";
+						cout << seat[train][line][row] << " ";
+					}
+					cout << endl;
+				}
+				cout << endl;
+			}
+		}
+	
+		else if (num == 3) {
+			int totalAmount = (adultTotal * 25000) + (babyTotal * 18000); 
+			cout << "총" << totalAmount << "원 입니다." << endl;
+		
+			break; 
+		}
 	}
-}	
+}
