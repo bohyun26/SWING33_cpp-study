@@ -4,7 +4,7 @@ using namespace std;
 
 const int TRAIN_NUM = 3;
 const int LINE = 5;
-const int ROW = 4; 
+const int ROW = 4;
 
 int main() {
 
@@ -13,14 +13,14 @@ int main() {
 	int line = 0;
 	int row = 0;
 	int seat[TRAIN_NUM][LINE][ROW] = { 0 };
-	int adult=0;
-	int baby=0;
+	int adult = 0;
+	int baby = 0;
 	int adultTotal = 0;
 	int babyTotal = 0;
 
 	int p = 0;
 
-	while(true) {
+	while (true) {
 
 		int num;
 
@@ -51,13 +51,13 @@ int main() {
 
 			cout << "성인(25000원): ";
 			cin >> adult;
-			
+
 
 			cout << endl;
 
 			cout << "청소년(18000원): ";
 			cin >> baby;
-			
+
 
 			int total = adult + baby;
 
@@ -70,7 +70,7 @@ int main() {
 
 			for (int i = 0; i < total; i++) {
 
-				
+
 				while (true) {
 					cout << "\n몇 호차를 예약하시겠습니까? " << endl;
 					cin >> train;
@@ -101,9 +101,9 @@ int main() {
 
 					break;
 				}
-				
+
 			}
-			
+
 			cout << endl;
 
 			for (int train = 0; train < TRAIN_NUM; ++train) {
@@ -186,18 +186,27 @@ int main() {
 					int b = N - 1;
 					int c = M - 1;
 
-					if (a<0 || a>TRAIN_NUM || b<0 || b>LINE || c<0 || c>ROW) {
+					if (H<0 || H>TRAIN_NUM || N<0 || N>LINE || M<0 || M>ROW) {
 						cout << "좌석 번호를 다시 입력해주세요" << endl;
-						continue;
-					}
-
-					if (seat[a][b][c] == 1) {
-						cout << "이미 예약되었습니다. 다른 좌석을 선택하세요" << endl;
+						cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
+						cout << "현재 좌석(H호차 , N열 , M번째) : ";
+						cin >> origintrain >> originline >> originrow;
 						continue;
 					}
 
 					if (origintrain == H && originline == N && originrow == M) {
 						cout << "똑같은 자리입니다. 다른 좌석을 선택하세요" << endl;
+						cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
+						cout << "현재 좌석(H호차 , N열 , M번째) : ";
+						cin >> origintrain >> originline >> originrow;
+						continue;
+					}
+
+					if (seat[a][b][c] == 1) {
+						cout << "이미 예약되었습니다. 다른 좌석을 선택하세요" << endl;
+						cout << "현재 좌석과 바꿀 좌석을 입력하세요" << endl;
+						cout << "현재 좌석(H호차 , N열 , M번째) : ";
+						cin >> origintrain >> originline >> originrow;
 						continue;
 					}
 
@@ -225,12 +234,12 @@ int main() {
 				cout << endl;
 			}
 		}
-	
+
 		else if (num == 3) {
-			int totalAmount = (adultTotal * 25000) + (babyTotal * 18000); 
+			int totalAmount = (adultTotal * 25000) + (babyTotal * 18000);
 			cout << "총" << totalAmount << "원 입니다." << endl;
-		
-			break; 
+
+			break;
 		}
 	}
 }
