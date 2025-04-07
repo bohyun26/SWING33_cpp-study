@@ -21,7 +21,6 @@ int main() {
 
 		int num;
 
-		cout << endl;
 		cout << "*****DVD 주문 프로그램*****" << endl;
 		cout << endl;
 		cout << "1. 액션 DVD (12000원)" << endl;
@@ -67,8 +66,8 @@ int main() {
 
 			if (answer == N) {
 				cout <<"메인 메뉴로 돌아갑니다." << endl;
-
-				break;
+				cout << endl;
+				continue;
 			}
 		}
 		if (num <= 0 || num > 5) {
