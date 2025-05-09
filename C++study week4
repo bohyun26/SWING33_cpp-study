@@ -1,0 +1,194 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+class square {
+private:
+	int  side;
+public:
+	square(int s) {
+		side = s;
+		cout << "***정사각형 계산기 접속***" << endl << endl;
+	}
+	square() {
+		cout << "***정사각형 계산기 접속***" << endl << endl;
+	}
+	~square() {
+		cout << "정사각형 계산기 종료..." << endl << endl;
+	}
+	int s_area() {
+		return side * side;
+	}
+};
+
+class triangle {
+private:
+	int base;
+	int height;
+public:
+	triangle(int b, int h) {
+		base = b;
+		height = h;
+		cout << "***삼각형 계산기 접속***" << endl << endl;
+	}
+	triangle() {
+		cout << "***삼각형 계산기 접속***" << endl << endl;
+	}
+	~triangle() {
+		cout << "삼각형 계산기 종료..." << endl << endl;
+	}
+	double t_area() {
+		return (base * height) / 2;
+	}
+};
+
+class cube {
+private:
+	int edge;
+public:
+	cube(int e) {
+		edge = e;
+		cout << "***정육면체 계산기 접속***" << endl << endl;
+	}
+	cube() {
+		cout << "***정육면체 계산기 접속***" << endl << endl;
+	}
+	~cube() {
+		cout << "정육면체 계산기 종료..." << endl << endl;
+	}
+	int c_surface_area() {
+		return 6 * edge * edge;
+	}
+	int c_volume() {
+		return edge * edge * edge;
+	}
+};
+
+class square_pyramid {
+private:
+	int side; //밑면 정사각형 한 변 길이
+	int height;
+public:
+	square_pyramid(int s,int h) {
+		side = s;
+		height = h;
+		cout << "***정사각뿔 계산기 접속***" << endl << endl;
+	}
+	square_pyramid() {
+		cout << "***정사각뿔 계산기 접속***" << endl << endl;
+	}
+	~square_pyramid() {
+		cout << "정사각뿔 계산기 종료..." << endl << endl;
+	}
+	int s_surface_area() {
+		return 2*side*sqrt((side*side)/4 + (height*height))+side*side;
+	}
+	double s_volume() {
+		return (side*side*height)/3;
+	}
+};
+
+int main() {
+	int num;
+	int side, base, height, edge;
+
+	while (1) {
+		cout << "원하는 계산을 선택하세요" << endl;
+		cout << "1. 정사각형 넓이 계산" << endl;
+		cout << "2. 정삼각형 넓이 계산" << endl;
+		cout << "3. 정육면체 부피 계산" << endl;
+		cout << "4. 정육면체 겉넓이 계산" << endl;
+		cout << "5. 정사각뿔 부피 계산" << endl;
+		cout << "6. 정사각뿔 겉넓이 계산" << endl;
+		cout << "7. 종료" << endl;
+		cout << "선택: ";
+		cin >> num;
+		cout << endl;
+
+		switch (num) {
+
+		case 1:
+			cout << "변의 길이 입력: ";
+			cin >> side;
+			cout << endl;
+			{
+				square c1(side);
+				cout << "정사각형의 넓이:" << c1.s_area() << endl << endl;
+			}
+			break;
+
+		case 2:
+			
+			cout << "변의 길이 입력:";
+			cin >> base;
+			cout << endl << endl;
+			cout << "높이 입력:";
+			cin >> height;
+			cout << endl;
+			{
+				triangle c2(base, height);
+				cout << "삼각형의 넓이:" << c2.t_area() << endl << endl;
+			}
+			break;
+
+		case 3:
+			
+			cout << "변의 길이 입력:";
+			cin >> edge;
+			cout << endl;
+			{
+				cube c3(edge);
+				cout << "정육면체 부피:" << c3.c_volume() << endl << endl;
+			}
+			break;
+
+		case 4:
+			
+			cout << "변의 길이 입력:";
+			cin >> edge;
+			cout << endl;
+			{
+				cube c4(edge);
+				cout << "정육면체 겉넓이:" << c4.c_surface_area() << endl << endl;
+			}
+			break;
+
+		case 5:
+			
+			cout << "사각형 한 변의 길이 입력:";
+			cin >> side;
+			cout <<endl;
+			cout << "높이 입력:";
+			cin >> height;
+			cout << endl;
+			{
+				square_pyramid c5(side, height);
+				cout << "정사각뿔의 부피:" << c5.s_volume() << endl << endl;
+			}
+			break;
+
+		case 6:
+			
+			cout << "사각형 한 변의 길이 입력:";
+			cin >> side;
+			cout << endl;
+			cout << "높이 입력:";
+			cin >> height;
+			cout << endl;
+			{
+				square_pyramid c6(side, height);
+				cout << "정사각뿔의 겉넓이:" << c6.s_surface_area() << endl << endl;
+			}
+			break;
+
+		case 7:
+			cout << "프로그램을 종료합니다." << endl << endl;
+			return 0;
+
+		default:
+			cout << "잘못된 숫자입니다." << endl << endl;
+		}
+		
+	}
+	
+}
