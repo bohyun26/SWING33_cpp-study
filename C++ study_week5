@@ -1,0 +1,120 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Information {
+public:
+	string title;
+	string author;
+
+	Information(string t, string a) : title(t), author(a) {}
+	// title(t), author(a)는 생성자가 호출될 때, 클래스의 멤버 변수인 title과 author를 각각 t와 a로 초기화한다는 뜻
+};
+
+//bool은 C++에서 참 또는 거짓만을 표현하는 논리 자료형
+bool sameBook(const Information* a, const Information* b) {
+	return (a->title == b->title) && (a->author == b->author);
+}
+
+void addBook(vector<Information>& books) {
+	string title, author;
+	cout << "도서 제목을 입력하세요: ";
+	cin.ignore();
+	getline(cin, title);
+	cout << "도서 저자를 입력하세요: ";
+	getline(cin, author);
+
+	Information newbook(title, author);
+
+	// 이미 존재하는지 확인
+	for (auto& book : books) {
+		if (sameBook(&book, &newbook)) {
+			cout << "이미 등록된 도서입니다." << endl;
+			return;
+		}
+	}
+	books.push_back(newbook);
+	cout << endl<< "도서가 성공적으로 추가되었습니다." << endl << endl;
+}
+
+void searchBook(const vector<Information>& books) {
+	string title, author;
+	cout << "도서 제목을 입력하세요: ";
+	cin.ignore();
+	getline(cin, title);
+	cout << "도서 저자를 입력하세요: ";
+	getline(cin, author);
+
+	Information target(title, author);
+	for (const auto& book : books) {
+		if (sameBook(&book, &target)) {
+			cout << endl<< "도서를 찾았습니다:" << endl;
+			cout << "제목: " << book.title << endl;
+			cout << "저자: " << book.author << endl << endl;
+			return;
+		}
+	}
+	cout << endl<<"일치하는 도서를 찾을 수 없습니다." << endl << endl;
+}
+
+void modifyBook(vector<Information>& books) {
+	string title, author;
+	cout << "수정할 도서 제목을 입력하세요: ";
+	cin.ignore();
+	getline(cin, title);
+	cout << "수정할 도서 저자를 입력하세요: ";
+	getline(cin, author);
+
+	Information target(title, author);
+
+	for (auto& book : books) {
+		if (sameBook(&book, &target)) {
+			cout << endl<<"새로운 도서 제목을 입력하세요: ";
+			getline(cin, book.title);
+			cout << "새로운 도서 저자를 입력하세요: ";
+			getline(cin, book.author);
+			cout <<endl<< "도서 정보가 성공적으로 수정되었습니다." << endl << endl;
+			return;
+		}
+	}
+	cout << endl<<"일치하는 도서를 찾을 수 없습니다." << endl;
+}
+
+
+int main() {
+	vector<Information> books;
+	int num;
+
+	while (1) {
+		cout << "***** 도서 정보 관리 프로그램 *****" << endl << endl;
+		cout << "1. 도서 추가 " << endl;
+		cout << "2. 도서 검색" << endl;
+		cout << "3. 도서 정보 수정" << endl;
+		cout << "4. 프로그램 종료" << endl << endl;
+		cout << "번호를 입력하세요: ";
+		cin >> num;
+		cout << endl << endl;
+
+		switch (num) {
+		case 1:
+			cout << "***** 도서 추가를 진행합니다 *****" << endl;
+			addBook(books);
+			break;
+		case 2:
+			cout << "***** 도서 검색을 진행합니다 *****" << endl;
+			searchBook(books);
+			break;
+		case 3:
+			cout << "*****도서 정보를 수정합니다 *****" << endl;
+			modifyBook(books);
+			break;
+		case 4:
+			cout << "프로그램을 종료합니다." << endl;
+			return 0;
+		default:
+			cout << "정확한 번호를 입력하세요." << endl;
+		}
+		cout << endl;
+	}
+}
