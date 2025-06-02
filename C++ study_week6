@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // sort, find
+
+using namespace std;
+
+// 템플릿 벡터 출력 함수
+template <typename T>
+void printVector(const vector<T>& x) {
+    typename vector<T>::const_iterator it;
+    for (it = x.begin(); it != x.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    // 1. 정수형 벡터 생성 및 출력
+    vector<int> numbers;
+    numbers.push_back(4);
+    numbers.push_back(7);
+    numbers.push_back(1);
+    numbers.push_back(8);
+    numbers.push_back(3);
+    numbers.push_back(9);
+
+    cout << "기존 벡터 숫자들: ";
+    printVector(numbers);
+
+    sort(numbers.begin(), numbers.end());
+
+    cout << "정렬된 벡터 숫자들: ";
+    printVector(numbers);
+
+    // 3. 특정 값 검색 (find)
+    int target = 7;
+    vector<int>::iterator it = find(numbers.begin(), numbers.end(), target);
+    if (it != numbers.end()) {
+        cout << target << "의 index: " << distance(numbers.begin(), it) << endl;
+    }
+    else {
+        cout << target << " not found in the vector." << endl;
+    }
+
+    // 4. 문자열 벡터 생성 및 정렬
+    vector<string> fruits;
+    fruits.push_back("banana");
+    fruits.push_back("apple");
+    fruits.push_back("grape");
+    fruits.push_back("orange");
+
+    cout << "\n기존 벡터 과일들: ";
+    printVector(fruits);
+
+    sort(fruits.begin(), fruits.end());
+
+    cout << "정렬된 벡터 과일들: ";
+    printVector(fruits);
+
+    // 5. 특정 문자열 검색
+    string targetStr = "apple";
+    vector<string>::iterator itStr = find(fruits.begin(), fruits.end(), targetStr);
+    if (itStr != fruits.end()) {
+        cout << targetStr << "의 index: " << distance(fruits.begin(), itStr) << endl;
+    }
+    else {
+        cout << targetStr << " not found in the vector." << endl;
+    }
+
+    return 0;
+}
